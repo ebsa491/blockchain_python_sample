@@ -28,9 +28,21 @@ class Blockchain:
             {'sender': sender, 'recipient': recipient, 'amount': amount})
         return self.last_block['index'] + 1
 
+    def proof_of_work(self, last_proof):
+        proof = 0
+        while self.valid_proof(last_proof, proof) is False:
+            proof += 1
+
+        return proof
+
+    def valid_proof(self, last_proof, proof):
+        this_proof = f"{proof}{last_proof}".encode()
+        this_proof_hash = hashlib.sha256(this_proof).hexdigest()
+        return this_proof_hash[:4] == '0000'
+
     @property
     def last_block(self):
-        pass
+        return self.chain[-1]
 
 
 def hash_block(block):
