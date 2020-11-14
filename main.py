@@ -21,8 +21,10 @@ class Blockchain:
         self.chain.append(block)
         return block
 
-    def new_trx(self):
-        pass
+    def new_trx(self, sender, recipient, amount):
+        self.current_trxs.append(
+            {'sender': sender, 'recipient': recipient, 'amount': amount})
+        return self.last_block['index'] + 1
 
     @property
     def last_block(self):
