@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+import json
+import hashlib
 from time import time
 
 
@@ -32,4 +34,5 @@ class Blockchain:
 
 
 def hash_block(block):
-    pass
+    block_str = json.dumps(block, sort_keys=True).encode()
+    return hashlib.sha256(block_str).hexdigest()
